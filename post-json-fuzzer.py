@@ -36,6 +36,6 @@ credentials = zip(emails, passwords)
 with open('results.txt', 'a') as f:
     for cred in credentials:
         e, p = cred
-        output = api2_post_login(e, p)
-        f.write(str(output.status_code) + ' ' + str(output.json()) + '\n')
+        response = api2_post_login(e, p)
+        f.write(str(response.status_code) + ' ' + str(response.json()) + '\n')
     f.close()
