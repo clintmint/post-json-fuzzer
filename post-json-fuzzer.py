@@ -1,5 +1,6 @@
 '''
-Script for fuzzing 2 parameters simultaneously in a POST JSON body. Similar to Burp Intruder Pitchfork attack type but without Community Edition rate limit.
+Script for fuzzing 2 parameters simultaneously in a POST JSON body. Similar to Burp Intruder Pitchfork 
+attack type without the Community Edition rate limit.
 
 Proxying through Burp can be done using envrionment variables:
 
