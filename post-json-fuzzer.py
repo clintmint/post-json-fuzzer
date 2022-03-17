@@ -1,20 +1,3 @@
-'''
-Script for fuzzing 2 parameters simultaneously in a JSON POST request. 
-Similar to Burp Intruder Pitchfork attack type without the Community Edition limitations.
-
-Proxying through Burp can be done using envrionment variables:
-
-Powershell
-$env:REQUESTS_CA_BUNDLE="Z:\PATH\TO\burpCert.pem"
-$env:HTTP_PROXY="http://127.0.0.1:8080"
-$env:HTTPS_PROXY="http://127.0.0.1:8080"
-
-Bash
-export REQUESTS_CA_BUNDLE="/PATH/TO/burpCert.pem"
-export HTTP_PROXY="http://127.0.0.1:8080"
-export HTTPS_PROXY="http://127.0.0.1:8080"
-'''
-
 import requests, csv
 
 # Testing on self-hosted vulnerable API: https://github.com/roottusk/vapi
